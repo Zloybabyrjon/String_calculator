@@ -7,10 +7,10 @@ function isOperator($c)
 
 function getOperaroePriority($op)
 {
-    if ($op == '+' || $op == '-') {
+    if ($op === '+' || $op === '-') {
         return 1;
     }
-    if ($op == '*' || $op == '/') {
+    if ($op === '*' || $op === '/') {
         return 2;
     }
     return 0;
@@ -22,18 +22,18 @@ function calculation($operand1, $operand2, $op)
         return "Ошибка! Введены некорректные символы.";
     }
 
-    if ($op == '+') {
+    if ($op === '+') {
         return $operand1 + $operand2;
-    } else if ($op == '-') {
+    } else if ($op === '-') {
         return $operand1 - $operand2;
-    } else if ($op == '*') {
-        if ($operand2 == 0 || $operand1 == 0) {
+    } else if ($op === '*') {
+        if ($operand2 === 0 || $operand1 === 0) {
             return "Ошибка! Деление на ноль!" . PHP_EOL;
         } else {
             return $operand1 * $operand2;
         }
-    } else if ($op == '/') {
-        if ($operand1 == 0 || $operand2 == 0) {
+    } else if ($op === '/') {
+        if ($operand1 === 0 || $operand2 === 0) {
             return "Ошибка! Деление на ноль!" . PHP_EOL;
         } else {
             return $operand1 / $operand2;
@@ -49,24 +49,24 @@ function calculateExample(&$example)
     $numStack = array();
     for ($i = 0; $i < strlen($example); $i++) {
         $c = $example[$i];
-        if ($c == '(') {
+        if ($c === '(') {
             $inParentheses = true;
-        } elseif ($c == ')') {
+        } elseif ($c === ')') {
             $inParentheses = false;
             if (empty($numStack)) {
                 return "Ошибка! В скобках нету выражения!";
             }
-        } else if (is_numeric($c) || $c == '.') {
+        } else if (is_numeric($c) || $c === '.') {
             $numStr = $c;
-            while ($i + 1 < strlen($example) && (is_numeric($example[$i + 1]) || $example[$i + 1] == '.')) {
+            while ($i + 1 < strlen($example) && (is_numeric($example[$i + 1]) || $example[$i + 1] === '.')) {
                 $numStr .= $example[$i + 1];
                 $i++;
             }
 
             array_push($numStack, floatval($numStr));
-        } else if ($c == '(') {
+        } else if ($c === '(') {
             array_push($opStack, '(');
-        } else if ($c == ')') {
+        } else if ($c === ')') {
             while (end($opStack) != '(') {
                 $op = array_pop($opStack);
 
